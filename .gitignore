@@ -6,6 +6,9 @@
 *.lo
 *.o
 *.obj
+*.sdf
+*.opensdf
+*.suo
 
 # Precompiled Headers
 *.gch
@@ -30,3 +33,10 @@
 *.exe
 *.out
 *.app
+
+Data/
+Debug/
+CommuFucAPI/Debug/
+CommuFucAPI/Release/
+ExPublicDll/Debug/
+ExPublicDll/Release/
