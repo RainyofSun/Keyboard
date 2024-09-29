@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "NumberKeyboard.h"
 
 // CKeyboardDlg ¶Ô»°¿ò
 class CKeyboardDlg : public CDialogEx
@@ -28,4 +28,11 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedNumberKeyboardButton();
+	afx_msg void OnBnClickedStringKeyboardButton();
+	afx_msg void OnBnClickedBothKeyboardButton();
+
+public:
+	CNumberKeyboard *m_numberKeyboard;
 };

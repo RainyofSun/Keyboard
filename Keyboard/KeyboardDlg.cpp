@@ -21,6 +21,7 @@ CKeyboardDlg::CKeyboardDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CKeyboardDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_numberKeyboard = nullptr;
 }
 
 void CKeyboardDlg::DoDataExchange(CDataExchange* pDX)
@@ -31,6 +32,9 @@ void CKeyboardDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CKeyboardDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_NUMBER_KEYBOARD_BUTTON, &CKeyboardDlg::OnBnClickedNumberKeyboardButton)
+	ON_BN_CLICKED(IDC_STRING_KEYBOARD_BUTTON, &CKeyboardDlg::OnBnClickedStringKeyboardButton)
+	ON_BN_CLICKED(IDC_BOTH_KEYBOARD_BUTTON, &CKeyboardDlg::OnBnClickedBothKeyboardButton)
 END_MESSAGE_MAP()
 
 
@@ -44,8 +48,6 @@ BOOL CKeyboardDlg::OnInitDialog()
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
-
-	// TODO: 在此添加额外的初始化代码
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -86,3 +88,30 @@ HCURSOR CKeyboardDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+// 数字键盘
+void CKeyboardDlg::OnBnClickedNumberKeyboardButton()
+{
+	if (m_numberKeyboard != nullptr)
+	{
+		m_numberKeyboard->DestroyWindow();
+		delete m_numberKeyboard;
+		m_numberKeyboard = nullptr;
+	}
+
+	m_numberKeyboard = new CNumberKeyboard;
+	m_numberKeyboard->Create(IDD_NUMBER_KEYBOARD_DIALOG);
+	m_numberKeyboard->ShowWindow(SW_SHOW);
+}
+
+// 字符键盘
+void CKeyboardDlg::OnBnClickedStringKeyboardButton()
+{
+	
+}
+
+// 数字字符键盘
+void CKeyboardDlg::OnBnClickedBothKeyboardButton()
+{
+	
+}

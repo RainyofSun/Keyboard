@@ -39,6 +39,15 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ExportDll.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberKeyboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardConfig.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -48,6 +57,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportDll.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberKeyboard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
