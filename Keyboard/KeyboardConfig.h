@@ -31,6 +31,10 @@
 #define DEC			0x22
 #define OK			0x23
 #define CANCEL		0x24
+#define abc			0x25
+#define ABC			0x26
+#define NUM			0X27
+#define SPACE		0x28
 
 struct KeyInfo
 {

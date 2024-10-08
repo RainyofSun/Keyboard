@@ -22,6 +22,7 @@ CKeyboardDlg::CKeyboardDlg(CWnd* pParent /*=NULL*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	m_numberKeyboard = nullptr;
+	m_stringKeyboard = nullptr;
 }
 
 void CKeyboardDlg::DoDataExchange(CDataExchange* pDX)
@@ -107,7 +108,16 @@ void CKeyboardDlg::OnBnClickedNumberKeyboardButton()
 // ×Ö·û¼üÅÌ
 void CKeyboardDlg::OnBnClickedStringKeyboardButton()
 {
-	
+	if (m_stringKeyboard != nullptr)
+	{
+		m_stringKeyboard->DestroyWindow();
+		delete m_stringKeyboard;
+		m_stringKeyboard = nullptr;
+	}
+
+	m_stringKeyboard = new CStringKeyboard;
+	m_stringKeyboard->Create(IDD_STRING_KEYBOARD_DIALOG);
+	m_stringKeyboard->ShowWindow(SW_SHOW);
 }
 
 // Êý×Ö×Ö·û¼üÅÌ

@@ -498,7 +498,8 @@ void CNumberKeyboard::SendKey(KeycapDefine *keyDef)
 					float fValue = 0;
 					CString message;
 
-					if ("1" == m_numberKeyInfo.strFormat)
+					UpdateData(TRUE);
+					if (m_tempString.Find('.') == FALSE)
 					{
 						iValue = GetDlgItemInt(IDC_NEWVALUE_EDIT);
 						strValue.Format("%d", iValue);
@@ -514,7 +515,6 @@ void CNumberKeyboard::SendKey(KeycapDefine *keyDef)
 					}
 					else
 					{
-						UpdateData(TRUE);
 						fValue = (float)atof(m_tempString);
 						strValue.Format("%.3f", fValue);
 
@@ -681,7 +681,7 @@ void CNumberKeyboard::DrawKeycap(CDC *dc, KeycapDefine *key)
 		DrawGradientFill(dc, &rc);
 		dc->Draw3dRect(rc, GetSysColor(COLOR_3DDKSHADOW), GetSysColor(COLOR_3DSHADOW));
 		rc.DeflateRect(1, 1);
-		dc->Draw3dRect(rc, GetSysColor(COLOR_3DLIGHT), GetSysColor(COLOR_3DLIGHT));
+		dc->Draw3dRect(rc, GetSysColor(COLOR_3DLIGHT), GetSysColor(COLOR_3DSHADOW));
 	}
 	else
 	// ∏ﬂ¡¡œ‘ æ
