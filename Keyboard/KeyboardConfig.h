@@ -35,6 +35,8 @@
 #define ABC			0x26
 #define NUM			0X27
 #define SPACE		0x28
+#define EMPTY		0x29
+#define SHIFT		0x30
 
 struct KeyInfo
 {

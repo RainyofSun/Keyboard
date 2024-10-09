@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExportDll.h" />
+    <ClInclude Include="FullKeyboard.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyboardConfig.h" />
     <ClInclude Include="KeyboardDlg.h" />
@@ -111,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExportDll.cpp" />
+    <ClCompile Include="FullKeyboard.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="KeyboardConfig.cpp" />
     <ClCompile Include="KeyboardDlg.cpp" />

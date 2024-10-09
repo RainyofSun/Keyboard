@@ -5,6 +5,7 @@
 #pragma once
 #include "NumberKeyboard.h"
 #include "StringKeyboard.h"
+#include "FullKeyboard.h"
 
 // CKeyboardDlg ¶Ô»°¿ò
 class CKeyboardDlg : public CDialogEx
@@ -37,5 +38,5 @@ public:
 public:
 	CNumberKeyboard *m_numberKeyboard;
 	CStringKeyboard *m_stringKeyboard;
-
+	CFullKeyboard	*m_fullyKeyboard;
 };
