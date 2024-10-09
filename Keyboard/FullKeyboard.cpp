@@ -67,10 +67,6 @@ BEGIN_MESSAGE_MAP(CFullKeyboard, CDialogEx)
 	ON_BN_CLICKED(IDC_CANCEL_BUTTON, &CFullKeyboard::OnBnClickedCancelButton)
 END_MESSAGE_MAP()
 
-
-// CFullKeyboard 消息处理程序
-
-
 void CFullKeyboard::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
 {
 	if (nState == WA_CLICKACTIVE && pWndOther != nullptr)
@@ -93,7 +89,7 @@ HBRUSH CFullKeyboard::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		hbr = (HBRUSH)::GetStockObject(NULL_BRUSH);
 	}
 
-	if (IDC_NUM_STATIC == pWnd->GetDlgCtrlID())
+	if (IDC_NUMBER_TITLE_STATIC == pWnd->GetDlgCtrlID())
 	{
 		pDC->SetBkMode(TRANSPARENT);
 		pDC->SetTextColor(RGB(255, 255, 255));
@@ -293,7 +289,7 @@ void CFullKeyboard::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 	}
 
-	CDialogEx::OnLButtonDblClk(nFlags, point);
+	CDialogEx::OnLButtonDown(nFlags, point);
 }
 
 
@@ -459,31 +455,31 @@ void CFullKeyboard::OnPaint()
 	dc.FillSolidRect(rect, RGB(IDC_RED_DLG, IDC_GREEN_DLG, IDC_BLUE_DLG));
 	ReleaseDC(&dc);
 
-	CPaintDC dc1(GetDlgItem(IDC_NUMBER_BORDER_STATIC));
-	CRect rectCliet;
+	CPaintDC dc1(GetDlgItem(IDC_NUMBER_TITLE_STATIC));
+	CRect rectClient;
 	CDC dcMen, dcBkgrand;
-	CBitmap bitmapTemp, *oldBitMap;
+	CBitmap bitmapTemp, *oldBitTemp;
 
-	GetDlgItem(IDC_NUMBER_BORDER_STATIC)->GetClientRect(&rectCliet);
-	bitmapTemp.CreateCompatibleBitmap(&dc1, rectCliet.Width(), rectCliet.Height());
+	GetDlgItem(IDC_NUMBER_BORDER_STATIC)->GetClientRect(&rectClient);
+	bitmapTemp.CreateCompatibleBitmap(&dc1, rectClient.Width(), rectClient.Height());
 	dcMen.CreateCompatibleDC(&dc1);
-	oldBitMap = dcMen.SelectObject(&bitmapTemp);
+	oldBitTemp = dcMen.SelectObject(&bitmapTemp);
 
 	int r1 = 0, g1 = 25, b1 = 52;
 	int r2 = 204, g2 = 229, b2 = 235;
 
-	for (int i = 0; i < rectCliet.Width() ; i++)
+	for (int i = 0; i < rectClient.Width() ; i++)
 	{
 		int r,g,b;
-		r = r1 + (i * (r2-r1))/rectCliet.Width();
-		g = g1 + (i * (g2 - g1))/rectCliet.Width();
-		b = b1 + (i * (b2 - b1))/rectCliet.Width();
+		r = r1 + (i * (r2-r1))/rectClient.Width();
+		g = g1 + (i * (g2 - g1))/rectClient.Width();
+		b = b1 + (i * (b2 - b1))/rectClient.Width();
 
-		dcMen.FillSolidRect(i, 0, 1, rectCliet.Height(), RGB(r, g, b));
+		dcMen.FillSolidRect(i, 0, 1, rectClient.Height(), RGB(r, g, b));
 	}
 
-	dc1.BitBlt(0, 0, rectCliet.Width(), rectCliet.Height(), &dcMen, 0, 0, SRCCOPY);
-	dcMen.SelectObject(oldBitMap);
+	dc1.BitBlt(0, 0, rectClient.Width(), rectClient.Height(), &dcMen, 0, 0, SRCCOPY);//绘制图片到主DC
+	dcMen.SelectObject(oldBitTemp);//内存复位
 	bitmapTemp.DeleteObject();
 
 	DrawKeyboard(str123Static, nType, m_str123Client);
@@ -514,7 +510,7 @@ BOOL CFullKeyboard::OnInitDialog()
 
 	SendMessageToDescendants(WM_SETFONT, (WPARAM)HFONT(m_dlgFont), MAKELPARAM(false, 0), false);
 	
-	GetDlgItem(IDC_NUMBER_BORDER_STATIC)->SetWindowPos(NULL, FULL_TITLE_POS, SWP_NOZORDER);
+	GetDlgItem(IDC_NUMBER_TITLE_STATIC)->SetWindowPos(NULL, FULL_TITLE_POS, SWP_NOZORDER);
 	GetDlgItem(IDC_NUMBER_TITLE_STATIC)->SetWindowText(m_strkeyInfo.strTitle);
 
 	m_brush.CreateSolidBrush(RGB(220, 200, 220));
@@ -561,7 +557,6 @@ BOOL CFullKeyboard::OnInitDialog()
 	AddKey('_',0,2,6);
 	AddKey('+',0,2,6);
 	AddKey(0x00,EMPTY,2,6);
-	//	AddKey(0x00,BSPACE,3,0);
 
 	::GetWindowRect(str123Static->m_hWnd ,m_str123Client);
 	ScreenToClient(m_str123Client);
@@ -582,8 +577,6 @@ BOOL CFullKeyboard::OnInitDialog()
 	AddKey('P',0,2,1);
 	AddKey('[',0,2,1);
 	AddKey(']',0,2,1);
-	//AddKey(0x00,EMPTY,1,1);
-	//AddKey(0x00,CLR,3,1);
 	AddKey(0x00,0x00,0,7);	
 	AddKey('q',0,2,7);
 	AddKey('w',0,2,7);
@@ -666,6 +659,7 @@ BOOL CFullKeyboard::OnInitDialog()
 	
 	::GetWindowRect(zxcStatic->m_hWnd ,m_ZXCClient);
 	ScreenToClient(m_ZXCClient);
+
 	CalcWidthAndHeight(zxcStatic,3);//字母
 	CalcKeycapRect(m_ZXCClient,3);
 
@@ -694,8 +688,7 @@ BOOL CFullKeyboard::OnInitDialog()
 	SetWindowPos(&wndTopMost,100,POS_DLG_Y + 100,rcDlgs.Width(),rcDlgs.Height(),SWP_SHOWWINDOW | SWP_NOACTIVATE);//wndTopMost//设置位置大小
 	GetDlgItem(IDC_NEWVALUE_EDIT)->SetFocus();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 异常: OCX 属性页应返回 FALSE
+	return TRUE;
 }
 
 
@@ -714,8 +707,8 @@ void CFullKeyboard::InitTextFont()
 {
 	LOGFONT temp;
 	memset(&temp, 0, sizeof(LOGFONT));
-	temp.lfHeight = FONT_HIGHT;
-	temp.lfWidth = FONT_WIGHT;
+	temp.lfHeight = 30;
+	temp.lfWeight = 60;
 	temp.lfCharSet = SHIFTJIS_CHARSET;
 	temp.lfQuality = 1;
 	temp.lfPitchAndFamily = 1;
@@ -842,7 +835,7 @@ void CFullKeyboard::DrawKeycap(CDC *dc, KeycapDefine *key)
 			CSize size;
 			if (key->cNormal == '-')
 			{
-				size = dc->GetTextExtent(label);
+				size = dc->GetTextExtent("M");
 				int cx = (rc.left + rc.right)/2;
 				int cy = (rc.top + rc.bottom)/2;
 				int size = rc.Width()/8;
@@ -865,6 +858,8 @@ void CFullKeyboard::DrawKeycap(CDC *dc, KeycapDefine *key)
 	{
 		dc->SelectObject(oldPen);
 	}
+
+	DeleteObject(textPen);
 }
 
 void CFullKeyboard::DrawGradientFill(CDC *pdc, CRect *rect)
@@ -1113,7 +1108,7 @@ void CFullKeyboard::CalcWidthAndHeight(CWnd *pWnd, int list)
 			break;
 		case 3:
 			key = m_ZXCKeysList.GetNext(pos);
-			longest = 25;
+			longest = 23;
 			break;
 		case 4:
 			key = m_SPACEKeysList.GetNext(pos);

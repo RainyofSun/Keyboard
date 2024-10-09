@@ -14,7 +14,7 @@
 #define POS_DLG_Y	95
 
 #define HULF_TITLE_POS 0, 0, 501, 20
-#define FULL_TITLE_POS 1, 1, 1012, 20
+#define FULL_TITLE_POS 0, 0, 1012, 20
 
 #define BSPACE		0x06
 #define TAB			0x02
