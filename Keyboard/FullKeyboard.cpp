@@ -371,7 +371,7 @@ void CFullKeyboard::OnLButtonUp(UINT nFlags, CPoint point)
 		pos = m_num123KeysListSf.GetHeadPosition();
 		break;
 	case 7:
-		pos = m_ASDKeysListSf.GetHeadPosition();
+		pos = m_QWEKeysListSf.GetHeadPosition();
 		break;
 	case 8:
 		pos = m_ASDKeysListSf.GetHeadPosition();
